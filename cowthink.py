@@ -1,7 +1,7 @@
 import random
 import string
 
-# Tampilkan ASCII cowsay
+
 print(r"""
   ____________________
 ( hmm... let me think )
@@ -13,10 +13,10 @@ print(r"""
                  ||     ||
 """)
 
-# Nama file output
+
 outfile = "cow.txt"
 
-# Tanya input dari user
+
 name = input("What name do you want to fill in the wordlist?: ").strip()
 birth = input("Enter birthdate (example: 01012000): ").strip()
 symbols = input("Enter symbol(s) you want to add (example: !@#): ").strip()
@@ -31,12 +31,12 @@ birthplace = input("Birthplace / Hometown: ").strip()
 movie = input("Favorite movie / series: ").strip()
 fav_number = input("Favorite number: ").strip()
 
-print("\nMembuat wordlist kecil... harap tunggu\n")
+print("\nMaking Wordlist...\n")
 
-# Set untuk menghindari duplikat
+
 wordlist = set()
 
-# Fungsi variasi sederhana
+
 def simple_variations(word):
     if not word:
         return set()
@@ -46,7 +46,7 @@ def simple_variations(word):
         word.capitalize()
     }
 
-# Kumpulkan semua input
+
 groups = {
     "name": simple_variations(name),
     "social": simple_variations(social),
@@ -64,13 +64,13 @@ groups = {
 common_numbers = ["123", "99", "2024"]
 common_symbols = symbols if symbols else "!@#"
 
-# Masukkan dasar
+
 for group in groups.values():
     wordlist.update(group)
 if birth:
     wordlist.add(birth)
 
-# Kombinasi sederhana
+
 for group in groups.values():
     for w in group:
         if birth:
@@ -81,7 +81,7 @@ for group in groups.values():
         for s in common_symbols:
             wordlist.add(w + s)
 
-# Tambah sedikit random
+
 chars = string.ascii_letters + string.digits + common_symbols
 for _ in range(20):  # kecilin jumlah random
     choice = random.choice(
@@ -93,9 +93,9 @@ for _ in range(20):  # kecilin jumlah random
         random_word = random_word[:pos] + choice + random_word[pos:]
     wordlist.add(random_word)
 
-# Simpan
+
 with open(outfile, "w", encoding="utf-8") as f:
     for word in sorted(wordlist):
         f.write(word + "\n")
 
-print(f"Wordlist kecil berhasil dibuat: {outfile}")
+print(f"Wordlist created successfully : {outfile}")
